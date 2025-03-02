@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres-db
+    image: postgres
+    environment:
+      # Uncomment and set credentials if needed
+      # - POSTGRES_USER=embarkx
+      # - POSTGRES_PASSWORD=embarkx
+      - PGDATA=/data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
+    container_name: zipkin
+    ports:
+      - "9411:9411"  # Port used for the Zipkin UI and HTTP API
+    networks:
+      - postgres
+
+volumes:
+  postgres:
+
+networks:
+  postgres:
