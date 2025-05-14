@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 //sets base url for all methods
-//@RequestMapping("/jobs")
+    @RequestMapping("/job")
 public class JobController {
     JobService js;
 
